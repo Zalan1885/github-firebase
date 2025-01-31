@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Firebase Authentication</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <title>Firebase Authentication with PHP</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBEbcAjgwygXP6kpWmwJRd2OQSVI8Wet3A",
+            authDomain: "githubfirebase-57727.firebaseapp.com",
+            projectId: "githubfirebase-57727",
+            storageBucket: "githubfirebase-57727.firebasestorage.app",
+            messagingSenderId: "539084537408",
+            appId: "1:539084537408:web:dd616b97c4523f7530a9a5",
+            measurementId: "G-N24N6NHEG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        function register() {
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    document.getElementById('message').innerText = "Registration successful!";
+                })
+                .catch((error) => {
+                    document.getElementById('message').innerText = error.message;
+                });
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    document.getElementById('message').innerText = "Login successful!";
+                })
+                .catch((error) => {
+                    document.getElementById('message').innerText = error.message;
+                });
+        }
+    </script>
 </head>
 <body>
-    <h1>Firebase Authentication</h1>
+    <h1>Firebase Authentication with PHP</h1>
     <div>
         <h2>Register</h2>
         <input type="email" id="registerEmail" placeholder="Email">
@@ -22,8 +63,5 @@
     </div>
 
     <div id="message"></div>
-
-    <script src="firebaseConfig.js"></script>
-    <script src="firebaseAuth.js"></script>
 </body>
 </html>
